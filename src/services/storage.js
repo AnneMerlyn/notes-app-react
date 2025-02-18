@@ -1,20 +1,6 @@
-// This page handles local storage for favorites and notes
-export function addNote(note) {
-    const idOfNote = note.id;
-    const titleOfNote = note.title;
-    const contentOfNote = note.content;
-    const categoryOfNote = note.category;
-    const noteDetails = {
-        id: idOfNote,
-        title: titleOfNote,
-        content: contentOfNote,
-        category: categoryOfNote,
-    };
-
-    const notes = JSON.parse(localStorage.getItem("notes")) || [];
-    notes.push(noteDetails);
+// This page handles local storage for notes
+export function addNote(notes) {
     localStorage.setItem("notes", JSON.stringify(notes));
-    alert(`${titleOfNote} added to Notes!`);
 }
 
 export const getNotes = () => {
