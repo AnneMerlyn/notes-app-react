@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import MainLayout from "./layout/MainLayout";
 import Home from "./pages/Home";
 import NoteContextProvider from "./context/NoteContextProvider";
+import CreateNote from "./components/CreateNote";
 
 function App() {
     return (
@@ -10,6 +11,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<MainLayout />}>
                         <Route index element={<Home />} />
+                        <Route path="add-note" element={<CreateNote />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
