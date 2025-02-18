@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNotes } from "../context/context";
 
-function CreateNote() {
+function EditNote({ note }) {
     const { noteDispatch } = useNotes();
+
+    // Initialize local state for the form
     const [formData, setFormData] = useState({
         title: "",
         content: "",
         category: "",
     });
+
+    // When the note prop is available or changes, update the form state
+    useEffect(() => {
+        if (note) {
+            setFormData({
+                title: note.title || "",
+                content: note.content || "",
+                category: note.category || "",
+            });
+        }
+    }, [note]);
 
     // Handle changes for all input fields
     const handleChange = (e) => {
@@ -17,12 +30,11 @@ function CreateNote() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Validate that at least a title is provided, if needed
         if (!formData.title) return;
-        // Dispatch the note object to the context reducer
-        noteDispatch({ type: "NOTE_ADDED", payload: formData });
-        // Clear the form after submission
-        setFormData({ title: "", content: "", category: "" });
+        noteDispatch({
+            type: "NOTE_EDITED",
+            payload: { ...formData, id: note.id },
+        });
     };
 
     return (
@@ -74,7 +86,10 @@ function CreateNote() {
                         </label>
                     </div>
                     <button type="submit" className="btn btn-primary w-full">
-                        Create this Note
+                        Edit this Note
+                    </button>
+                    <button type="submit" className="btn btn-neutral w-full">
+                        Cancel
                     </button>
                 </form>
             </div>
@@ -82,4 +97,4 @@ function CreateNote() {
     );
 }
 
-export default CreateNote;
+export default EditNote;
