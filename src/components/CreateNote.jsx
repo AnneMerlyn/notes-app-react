@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNotes } from "../context/context";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 function CreateNote() {
+    const navigate = useNavigate();
     const { noteDispatch } = useNotes();
     const [formData, setFormData] = useState({
         title: "",
@@ -17,12 +20,17 @@ function CreateNote() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Validate that at least a title is provided, if needed
+
         if (!formData.title) return;
-        // Dispatch the note object to the context reducer
         noteDispatch({ type: "NOTE_ADDED", payload: formData });
-        // Clear the form after submission
+
+        toast.success("Note added successfully!", { autoClose: 1000 });
+
         setFormData({ title: "", content: "", category: "" });
+
+        setTimeout(() => {
+            navigate("/");
+        }, 2000);
     };
 
     return (

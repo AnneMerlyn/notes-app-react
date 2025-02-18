@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNotes } from "../context/context";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 function EditNote({ note }) {
+    const navigate = useNavigate();
     const { noteDispatch } = useNotes();
 
     // Initialize local state for the form
@@ -35,12 +38,18 @@ function EditNote({ note }) {
             type: "NOTE_EDITED",
             payload: { ...formData, id: note.id },
         });
+
+        toast.success("Note edited successfully!", { autoClose: 1000 });
+
+        setTimeout(() => {
+            navigate("/");
+        }, 2000);
     };
 
     return (
         <div className="flex items-center justify-center">
             <div className="max-w-lg w-full p-8 bg-base-100 rounded-lg mt-4">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form className="space-y-6">
                     <div>
                         <label className="block">
                             Title
@@ -85,11 +94,12 @@ function EditNote({ note }) {
                             </select>
                         </label>
                     </div>
-                    <button type="submit" className="btn btn-primary w-full">
+                    <button
+                        type="submit"
+                        onClick={handleSubmit}
+                        className="btn btn-primary w-full"
+                    >
                         Edit this Note
-                    </button>
-                    <button type="submit" className="btn btn-neutral w-full">
-                        Cancel
                     </button>
                 </form>
             </div>

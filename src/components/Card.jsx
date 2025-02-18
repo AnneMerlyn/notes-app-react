@@ -1,21 +1,33 @@
-// import { useState } from "react";
 import { TbEdit } from "react-icons/tb";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router";
 import DeleteNote from "./DeleteNote";
 import { useState } from "react";
+import { useNotes } from "../context/context";
 
 function Card({ note }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    const { noteDispatch } = useNotes();
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
     const handleDelete = () => {
-        // onDelete();
+        noteDispatch({ type: "NOTE_DELETED", payload: note.id });
         closeModal();
         navigate("/");
+    };
+
+    const getCategoryColor = (category) => {
+        const categoryColors = {
+            Creative: "border-indigo-500 text-indigo-500",
+            Study: "border-violet-500 text-violet-500",
+            Personal: "border-blue-500 text-blue-500",
+            Work: "border-sky-500 text-sky-500",
+        };
+
+        return categoryColors[category] || "border-gray-500 text-gray-500";
     };
 
     //formatting date here
@@ -28,11 +40,17 @@ function Card({ note }) {
         <div className="card bg-base-100 shadow-xl">
             <div className="card-body">
                 <div className="flex flex-row">
-                    <div className="badge badge-secondary">{note.category}</div>
+                    <div
+                        className={`badge badge-outline ${getCategoryColor(
+                            note.category
+                        )}`}
+                    >
+                        {note.category}
+                    </div>
                     <div className="flex flex-row ml-auto items-center gap-2">
                         <Link
                             to={`/edit-note/${note.id}`}
-                            className="cursor-pointer text-gray-500 hover:text-blue-500 active:text-blue-700 transition-colors"
+                            className="cursor-pointer text-gray-500 hover:text-indigo-700 active:text-blue-700 transition-colors"
                         >
                             <TbEdit size={20} />
                         </Link>

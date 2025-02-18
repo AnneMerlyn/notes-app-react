@@ -1,10 +1,10 @@
-import { addNote as addNoteToLocalStorage } from "../services/storage";
+import { updateNote as updateNoteToLocalStorage } from "../services/storage";
 
 const noteReducer = (state, action) => {
     switch (action.type) {
         case "NOTE_ADDED": {
             // Create a new note object using the data from the payload
-            console.log("NOTE_ADDED");
+
             const newNote = {
                 id: crypto.randomUUID(),
                 title: action.payload.title,
@@ -18,8 +18,24 @@ const noteReducer = (state, action) => {
                 notes: [newNote, ...state.notes],
             };
 
-            addNoteToLocalStorage(newState.notes);
+            updateNoteToLocalStorage(newState.notes);
             return newState;
+        }
+        case "NOTE_EDITED": {
+            const updatedNotes = state.notes.map((note) =>
+                note.id === action.payload.id
+                    ? { ...note, ...action.payload, date: Date.now() }
+                    : note
+            );
+            updateNoteToLocalStorage(updatedNotes);
+            return { ...state, notes: updatedNotes };
+        }
+        case "NOTE_DELETED": {
+            const deletedNotes = state.notes.filter(
+                (note) => note.id !== action.payload
+            );
+            updateNoteToLocalStorage(deletedNotes);
+            return { ...state, notes: deletedNotes };
         }
         default:
             return state;
