@@ -3,17 +3,19 @@ import { createContext, useContext } from "react";
 const AppContext = createContext();
 
 const useNotes = () => {
-    const context = useContext(AppContext);
-    if (!context)
-        throw new Error("useNotes must be used inside of a AppContextProvider");
-    return context;
+    const { noteState, noteDispatch } = useContext(AppContext);
+    return {
+        noteState,
+        noteDispatch,
+    };
 };
 
 const useUsers = () => {
-    const context = useContext(AppContext);
-    if (!context)
-        throw new Error("useUsers must be used inside of a AppContextProvider");
-    return context;
+    const { userState, userDispatch } = useContext(AppContext);
+    return {
+        userState,
+        userDispatch,
+    };
 };
 
 export { useNotes, useUsers, AppContext };

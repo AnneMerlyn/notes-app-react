@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import AppContextProvider from "./context/AppContextProvider";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
     return (
@@ -15,8 +16,22 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<MainLayout />}>
-                            <Route index element={<Home />} />
-                            <Route path="add-note" element={<CreateNote />} />
+                            <Route
+                                index
+                                element={
+                                    <ProtectedRoute>
+                                        <Home />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="add-note"
+                                element={
+                                    <ProtectedRoute>
+                                        <CreateNote />
+                                    </ProtectedRoute>
+                                }
+                            />
                             <Route
                                 path="edit-note/:id"
                                 element={<EditPage />}

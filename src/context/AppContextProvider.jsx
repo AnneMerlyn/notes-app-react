@@ -5,22 +5,23 @@ import { userReducer, noteReducer } from "./reducer";
 function AppContextProvider({ children }) {
     const [userState, userDispatch] = useReducer(userReducer, {
         users: JSON.parse(localStorage.getItem("users")) || [],
-        filter: "all",
+        currentUser: null,
     });
 
     const [noteState, noteDispatch] = useReducer(noteReducer, {
         notes: JSON.parse(localStorage.getItem("notes")) || [],
-        filter: "all",
     });
 
-    const value = {
+    const context = {
         noteState,
         noteDispatch,
         userState,
         userDispatch,
     };
 
-    return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+    return (
+        <AppContext.Provider value={context}>{children}</AppContext.Provider>
+    );
 }
 
 export default AppContextProvider;
