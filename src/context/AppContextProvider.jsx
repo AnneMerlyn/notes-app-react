@@ -1,15 +1,16 @@
 import { useReducer } from "react";
 import { AppContext } from "./context";
 import { userReducer, noteReducer } from "./reducer";
+import { getCurrentUser, getNotes, getUsers } from "../services/storage";
 
 function AppContextProvider({ children }) {
     const [userState, userDispatch] = useReducer(userReducer, {
-        users: JSON.parse(localStorage.getItem("users")) || [],
-        currentUser: null,
+        users: getUsers(),
+        currentUser: getCurrentUser(),
     });
 
     const [noteState, noteDispatch] = useReducer(noteReducer, {
-        notes: JSON.parse(localStorage.getItem("notes")) || [],
+        notes: getNotes(),
     });
 
     const context = {

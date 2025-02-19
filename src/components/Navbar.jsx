@@ -1,15 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { IoHome } from "react-icons/io5";
 import { MdNoteAdd } from "react-icons/md";
-import { BiUser, BiSolidUser } from "react-icons/bi";
+import { BiUser, BiSolidUser, BiLogOut } from "react-icons/bi";
 import { useUsers } from "../context/context";
+import { toast } from "react-toastify";
 
 function Navbar() {
-    const { currentUser } = useUsers();
+    const navigate = useNavigate();
+    const {
+        userState: { currentUser },
+        userDispatch,
+    } = useUsers();
 
     const [isOpen, setIsOpen] = useState(false);
     const isLoggedIn = !!currentUser;
+
+    const handleLogout = () => {
+        userDispatch({ type: "USER_SIGNED_OUT" });
+
+        toast.info("Logged out successfully", { autoClose: 1000 });
+
+        navigate("/signin");
+    };
 
     return (
         <>
@@ -50,16 +63,36 @@ function Navbar() {
                             )}
                         </ul>
 
-                        <Link
-                            to={isLoggedIn ? "/" : "/signin"}
-                            className="btn btn-ghost"
-                        >
-                            {isLoggedIn ? (
-                                <BiSolidUser className="text-2xl" />
-                            ) : (
-                                <BiUser className="text-2xl" />
+                        <div className="dropdown dropdown-bottom dropdown-end">
+                            <label
+                                tabIndex={0}
+                                className="btn btn-ghost flex items-center cursor-pointer"
+                            >
+                                {isLoggedIn ? (
+                                    <BiSolidUser className="text-2xl" />
+                                ) : (
+                                    <BiUser className="text-2xl" />
+                                )}
+                            </label>
+
+                            {/* Dropdown menu appears only if logged in */}
+                            {isLoggedIn && (
+                                <ul
+                                    tabIndex={0}
+                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md w-40"
+                                >
+                                    <li>
+                                        <button
+                                            onClick={handleLogout}
+                                            className="btn btn-error w-full flex gap-2"
+                                        >
+                                            <BiLogOut className="text-xl" />{" "}
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
                             )}
-                        </Link>
+                        </div>
 
                         <button
                             className="btn btn-ghost lg:hidden"
@@ -95,18 +128,36 @@ function Navbar() {
                                     </li>
                                 </>
                             )}
-                            <li>
-                                <Link
-                                    to={isLoggedIn ? "/" : "/signin"}
-                                    className="btn btn-ghost flex items-center gap-2"
-                                >
-                                    {isLoggedIn ? (
-                                        <BiSolidUser className="text-2xl" />
-                                    ) : (
-                                        <BiUser className="text-2xl" />
+                            <li className="relative">
+                                <div className="dropdown dropdown-bottom">
+                                    <label
+                                        tabIndex={0}
+                                        className="btn btn-ghost flex items-center gap-2 cursor-pointer"
+                                    >
+                                        {isLoggedIn ? (
+                                            <BiSolidUser className="text-2xl" />
+                                        ) : (
+                                            <BiUser className="text-2xl" />
+                                        )}
+                                        {isLoggedIn ? "Test" : "Sign In"}
+                                    </label>
+                                    {isLoggedIn && (
+                                        <ul
+                                            tabIndex={0}
+                                            className="dropdown-content menu p-2 shadow bg-base-100 rounded-md w-40"
+                                        >
+                                            <li>
+                                                <button
+                                                    // onClick={handleLogout}
+                                                    className="btn btn-error w-full flex gap-2"
+                                                >
+                                                    <BiLogOut className="text-xl" />{" "}
+                                                    Logout
+                                                </button>
+                                            </li>
+                                        </ul>
                                     )}
-                                    {isLoggedIn ? "Test" : "Sign In"}
-                                </Link>
+                                </div>
                             </li>
                         </ul>
                     </div>

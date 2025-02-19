@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useUsers } from "../context/context";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function SignIn() {
     const {
         userState: { users },
         userDispatch,
     } = useUsers();
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -17,8 +18,8 @@ function SignIn() {
             (user) => user.username === username && user.password === password
         );
         if (foundUser) {
-            // Set the current user on successful sign in
             userDispatch({ type: "USER_SIGNED_IN", payload: foundUser });
+            navigate("/");
         } else {
             alert("User not found or incorrect credentials. Please sign up.");
         }

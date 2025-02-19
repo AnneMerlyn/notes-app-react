@@ -1,6 +1,7 @@
 import {
     updateNote as updateNoteToLocalStorage,
     updateUser as updateUserToLocalStorage,
+    updateCurrentUser as updateCurrentUserToLocalStorage,
 } from "../services/storage";
 
 export const noteReducer = (state, action) => {
@@ -56,16 +57,17 @@ export const userReducer = (state, action) => {
             const newState = {
                 ...state,
                 users: [newUser, ...state.users],
-                currentUser: null,
             };
 
             updateUserToLocalStorage(newState.users);
             return newState;
         }
         case "USER_SIGNED_IN": {
+            updateCurrentUserToLocalStorage(action.payload);
             return { ...state, currentUser: action.payload };
         }
         case "USER_SIGNED_OUT": {
+            updateCurrentUserToLocalStorage(null);
             return { ...state, currentUser: null };
         }
         default:

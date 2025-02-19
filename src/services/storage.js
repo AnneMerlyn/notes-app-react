@@ -14,3 +14,11 @@ export const getUsers = () => {
 export const updateUser = (users) => {
     localStorage.setItem("users", JSON.stringify(users));
 };
+
+export const updateCurrentUser = (user) => {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+};
+
+export const getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem("currentUser")) || null;
+};

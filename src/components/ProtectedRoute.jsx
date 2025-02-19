@@ -2,8 +2,9 @@ import { Navigate, useLocation } from "react-router";
 import { useUsers } from "../context/context";
 
 const ProtectedRoute = ({ children }) => {
-    const { currentUser } = useUsers();
-
+    const {
+        userState: { currentUser },
+    } = useUsers();
     const location = useLocation();
 
     if (!currentUser) {
