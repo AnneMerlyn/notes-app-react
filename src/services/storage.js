@@ -6,3 +6,11 @@ export const getNotes = () => {
 export const updateNote = (notes) => {
     localStorage.setItem("notes", JSON.stringify(notes));
 };
+
+export const getUsers = () => {
+    return JSON.parse(localStorage.getItem("users")) || [];
+};
+
+export const updateUser = (users) => {
+    localStorage.setItem("users", JSON.stringify(users));
+};

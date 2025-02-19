@@ -1,10 +1,11 @@
-import { updateNote as updateNoteToLocalStorage } from "../services/storage";
+import {
+    updateNote as updateNoteToLocalStorage,
+    updateUser as updateUserToLocalStorage,
+} from "../services/storage";
 
-const noteReducer = (state, action) => {
+export const noteReducer = (state, action) => {
     switch (action.type) {
         case "NOTE_ADDED": {
-            // Create a new note object using the data from the payload
-
             const newNote = {
                 id: crypto.randomUUID(),
                 title: action.payload.title,
@@ -42,4 +43,32 @@ const noteReducer = (state, action) => {
     }
 };
 
-export default noteReducer;
+export const userReducer = (state, action) => {
+    switch (action.type) {
+        case "USER_ADDED": {
+            const newUser = {
+                id: crypto.randomUUID(),
+                email: action.payload.email,
+                username: action.payload.username,
+                password: action.payload.password,
+            };
+
+            const newState = {
+                ...state,
+                users: [newUser, ...state.users],
+                currentUser: null,
+            };
+
+            updateUserToLocalStorage(newState.users);
+            return newState;
+        }
+        case "USER_SIGNED_IN": {
+            return { ...state, currentUser: action.payload };
+        }
+        case "USER_SIGNED_OUT": {
+            return { ...state, currentUser: null };
+        }
+        default:
+            return state;
+    }
+};

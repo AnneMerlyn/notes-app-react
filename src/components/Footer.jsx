@@ -4,7 +4,7 @@ function Footer() {
             <aside>
                 <p>
                     Copyright © {new Date().getFullYear()} - All rights reserved
-                    by Noted.
+                    by <span className="text-primary">Noted.</span>
                 </p>
             </aside>
         </footer>
