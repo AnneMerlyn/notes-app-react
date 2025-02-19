@@ -37,26 +37,26 @@ function Card({ note }) {
         : "No date available";
 
     return (
-        <div className="card bg-base-100 shadow-xl">
+        <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
             <div className="card-body">
-                <div className="flex flex-row">
+                <div className="flex flex-row items-center">
                     <div
                         className={`badge badge-outline ${getCategoryColor(
                             note.category
-                        )}`}
+                        )} px-3 py-1`}
                     >
                         {note.category}
                     </div>
-                    <div className="flex flex-row ml-auto items-center gap-2">
+                    <div className="flex flex-row ml-auto items-center gap-3">
                         <Link
                             to={`/edit-note/${note.id}`}
-                            className="cursor-pointer text-gray-500 hover:text-indigo-700 active:text-blue-700 transition-colors"
+                            className="cursor-pointer text-gray-500 hover:text-indigo-700 transition-colors"
                         >
                             <TbEdit size={20} />
                         </Link>
                         <button
                             onClick={openModal}
-                            className="cursor-pointer text-gray-500 hover:text-red-500 active:text-red-700 transition-colors"
+                            className="cursor-pointer text-gray-500 hover:text-red-500 transition-colors"
                         >
                             <RiDeleteBinLine size={20} />
                         </button>
@@ -68,7 +68,9 @@ function Card({ note }) {
                     </div>
                 </div>
 
-                <h2 className="card-title">{note.title}</h2>
+                <h2 className="card-title text-xl font-bold text-slate-100/80 mt-2 mb-2">
+                    {note.title}
+                </h2>
                 <figure>
                     <img
                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -76,8 +78,12 @@ function Card({ note }) {
                         className="rounded-xl"
                     />
                 </figure>
-                <p>{note.content}</p>
-                <div className="card-actions justify-end">{formattedDate}</div>
+                <p className="text-gray-300/80 leading-relaxed line-clamp-3">
+                    {note.content}
+                </p>
+                <div className="card-actions justify-end text-gray-600 text-sm mt-2">
+                    {formattedDate}
+                </div>
             </div>
         </div>
     );
