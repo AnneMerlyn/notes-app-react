@@ -11,9 +11,28 @@ function SignIn() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({});
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const newErrors = {};
+
+        if (!username.trim()) {
+            newErrors.username = "Username is required.";
+        }
+
+        // Validate password
+        if (!password.trim()) {
+            newErrors.password = "Password is required.";
+        } else if (password.length < 6) {
+            newErrors.password = "Password must be at least 6 characters long.";
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         const foundUser = users.find(
             (user) => user.username === username && user.password === password
         );
@@ -38,7 +57,6 @@ function SignIn() {
                             Sign up here
                         </Link>
                     </p>
-
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <label className="input input-bordered flex items-center gap-3 p-3">
                             <svg
@@ -57,7 +75,11 @@ function SignIn() {
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                         </label>
-
+                        {errors.username && (
+                            <span className="text-red-800 text-xs mt-1 ml-1">
+                                {errors.username}
+                            </span>
+                        )}
                         <label className="input input-bordered flex items-center gap-3 p-3">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +101,11 @@ function SignIn() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </label>
-
+                        {errors.password && (
+                            <span className="text-red-800 text-xs mt-1 ml-1">
+                                {errors.password}
+                            </span>
+                        )}
                         <button
                             type="submit"
                             className="btn btn-primary w-full text-lg p-3"

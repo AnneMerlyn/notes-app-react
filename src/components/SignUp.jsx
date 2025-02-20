@@ -6,27 +6,71 @@ import { useNavigate } from "react-router";
 
 function SignUp() {
     const navigate = useNavigate();
-    const { userDispatch } = useUsers();
+    const {
+        userState: { users },
+        userDispatch,
+    } = useUsers();
     const [formData, setFormData] = useState({
         email: "",
         username: "",
         password: "",
     });
+    const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const validate = () => {
+        let tempErrors = {};
+
+        // Basic field validations
+        if (!formData.email) {
+            tempErrors.email = "Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            tempErrors.email = "Please enter a valid email.";
+        }
+
+        if (!formData.username) {
+            tempErrors.username = "Username is required.";
+        }
+
+        if (!formData.password) {
+            tempErrors.password = "Password is required.";
+        } else if (formData.password.length < 6) {
+            tempErrors.password =
+                "Password must be at least 6 characters long.";
+        }
+
+        const userExists = users?.find(
+            (user) =>
+                user.email.toLowerCase() === formData.email.toLowerCase() &&
+                user.username.toLowerCase() === formData.username.toLowerCase()
+        );
+        if (userExists) {
+            tempErrors.general =
+                "A user with that email or username already exists.";
+        }
+
+        return tempErrors;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!formData.username || !formData.password) return;
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+
         userDispatch({ type: "USER_ADDED", payload: formData });
 
         toast.success("User added successfully!", { autoClose: 1000 });
 
         setFormData({ email: "", username: "", password: "" });
+        setErrors({});
 
         setTimeout(() => {
             navigate("/signin");
@@ -55,7 +99,13 @@ function SignUp() {
                                 </Link>
                             </p>
                         </div>
+
                         <div>
+                            {errors.general && (
+                                <span className="text-red-800 text-center text-xs">
+                                    {errors.general}
+                                </span>
+                            )}
                             <label className="input input-bordered flex items-center gap-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -75,6 +125,11 @@ function SignUp() {
                                     onChange={handleChange}
                                 />
                             </label>
+                            {errors.email && (
+                                <span className="text-red-800 text-xs mt-1 ml-2">
+                                    {errors.email}
+                                </span>
+                            )}
                         </div>
                         <div>
                             <label className="input input-bordered flex items-center gap-2">
@@ -95,6 +150,11 @@ function SignUp() {
                                     onChange={handleChange}
                                 />
                             </label>
+                            {errors.username && (
+                                <span className="text-red-800 text-xs mt-1 ml-2">
+                                    {errors.username}
+                                </span>
+                            )}
                         </div>
                         <div>
                             <label className="input input-bordered flex items-center gap-2">
@@ -119,7 +179,13 @@ function SignUp() {
                                     onChange={handleChange}
                                 />
                             </label>
+                            {errors.password && (
+                                <span className="text-red-800 text-xs mt-1 ml-2">
+                                    {errors.password}
+                                </span>
+                            )}
                         </div>
+
                         <button
                             type="submit"
                             className="btn btn-primary w-full"
