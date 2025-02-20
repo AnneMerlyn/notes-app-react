@@ -41,6 +41,7 @@ function SignIn() {
             navigate("/");
         } else {
             alert("User not found or incorrect credentials. Please sign up.");
+            navigate("/signup");
         }
     };
 
