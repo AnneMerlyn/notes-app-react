@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { useNotes } from "../context/context";
+import { useNotes, useUsers } from "../context/context";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
 function CreateNote() {
+    const {
+        userState: { currentUser },
+    } = useUsers();
+
     const navigate = useNavigate();
     const { noteDispatch } = useNotes();
     const [formData, setFormData] = useState({
@@ -11,6 +15,8 @@ function CreateNote() {
         content: "",
         category: "",
     });
+
+    // console.log("user id", currentUser.id);
 
     // Handle changes for all input fields
     const handleChange = (e) => {
@@ -22,7 +28,11 @@ function CreateNote() {
         e.preventDefault();
 
         if (!formData.title) return;
-        noteDispatch({ type: "NOTE_ADDED", payload: formData });
+
+        noteDispatch({
+            type: "NOTE_ADDED",
+            payload: { ...formData, userId: currentUser.id },
+        });
 
         toast.success("Note added successfully!", { autoClose: 1000 });
 

@@ -55,7 +55,7 @@ function Navbar() {
                                             to="/add-note"
                                             className="flex items-center gap-2 hover:text-primary transition"
                                         >
-                                            <MdNoteAdd className="text-xl" />{" "}
+                                            <MdNoteAdd className="text-xl" />
                                             Add Note
                                         </Link>
                                     </li>
@@ -63,13 +63,21 @@ function Navbar() {
                             )}
                         </ul>
 
-                        <div className="dropdown dropdown-bottom dropdown-end">
+                        <div className="dropdown dropdown-bottom dropdown-end hidden sm:flex">
                             <label
                                 tabIndex={0}
                                 className="btn btn-ghost flex items-center cursor-pointer"
                             >
                                 {isLoggedIn ? (
-                                    <BiSolidUser className="text-2xl" />
+                                    <>
+                                        <BiSolidUser className="text-2xl" />
+                                        {currentUser?.username
+                                            ? currentUser.username
+                                                  .charAt(0)
+                                                  .toUpperCase() +
+                                              currentUser.username.slice(1)
+                                            : "Guest"}
+                                    </>
                                 ) : (
                                     <BiUser className="text-2xl" />
                                 )}
@@ -79,14 +87,14 @@ function Navbar() {
                             {isLoggedIn && (
                                 <ul
                                     tabIndex={0}
-                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md w-40"
+                                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-md w-32"
                                 >
                                     <li>
                                         <button
                                             onClick={handleLogout}
-                                            className="btn btn-error w-full flex gap-2"
+                                            className="btn btn-sm btn-error flex items-center justify-start gap-2 px-3"
                                         >
-                                            <BiLogOut className="text-xl" />{" "}
+                                            <BiLogOut className="text-lg" />{" "}
                                             Logout
                                         </button>
                                     </li>

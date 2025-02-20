@@ -7,12 +7,14 @@ import {
 export const noteReducer = (state, action) => {
     switch (action.type) {
         case "NOTE_ADDED": {
+            // console.log("Payload in reducer:", action.payload);
             const newNote = {
                 id: crypto.randomUUID(),
                 title: action.payload.title,
                 content: action.payload.content,
                 category: action.payload.category,
                 date: Date.now(),
+                userId: action.payload.userId,
             };
 
             const newState = {
