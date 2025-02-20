@@ -2,15 +2,12 @@ function DeleteNote({ isOpen, onClose, onConfirm }) {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-            {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 opacity-100"
                 onClick={onClose}
             ></div>
 
-            {/* Modal */}
             <div className="bg-slate-900 p-6 rounded-lg shadow-xl z-10 max-w-md w-full transform transition-transform duration-300 scale-100 opacity-100">
-                {/* Animated Image */}
                 <p className="flex justify-center mb-2">
                     <img
                         src="/cartman.svg"

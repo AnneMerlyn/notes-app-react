@@ -4,14 +4,19 @@ import { Link, useNavigate } from "react-router";
 import DeleteNote from "./DeleteNote";
 import { useState } from "react";
 import { useNotes } from "../context/context";
+import { PiBookOpenUserBold } from "react-icons/pi";
+import ViewNote from "./ViewNote";
 
 function Card({ note }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const navigate = useNavigate();
     const { noteDispatch } = useNotes();
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+    const openViewModal = () => setIsViewModalOpen(true);
+    const closeViewModal = () => setIsViewModalOpen(false);
 
     const handleDelete = () => {
         noteDispatch({ type: "NOTE_DELETED", payload: note.id });
@@ -48,9 +53,16 @@ function Card({ note }) {
                         {note.category}
                     </div>
                     <div className="flex flex-row ml-auto items-center gap-3">
+                        <button
+                            onClick={openViewModal}
+                            className="cursor-pointer text-gray-500 hover:text-indigo-700 transition-colors"
+                        >
+                            <PiBookOpenUserBold size={20} />
+                        </button>
+
                         <Link
                             to={`/edit-note/${note.id}`}
-                            className="cursor-pointer text-gray-500 hover:text-indigo-700 transition-colors"
+                            className="cursor-pointer text-gray-500 hover:text-green-700 transition-colors"
                         >
                             <TbEdit size={20} />
                         </Link>
@@ -64,6 +76,11 @@ function Card({ note }) {
                             isOpen={isModalOpen}
                             onClose={closeModal}
                             onConfirm={handleDelete}
+                        />
+                        <ViewNote
+                            isOpen={isViewModalOpen}
+                            onClose={closeViewModal}
+                            note={note}
                         />
                     </div>
                 </div>
