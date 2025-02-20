@@ -88,11 +88,7 @@ function Card({ note }) {
                 <h2 className="card-title text-xl font-bold text-slate-100/80 mt-2 mb-2">
                     {note.title}
                 </h2>
-
-                <p className="text-gray-300/80 leading-relaxed line-clamp-3">
-                    {note.content}
-                </p>
-                {/* {note.imgUrl && (
+                {note.imgUrl && (
                     <figure className="mt-2">
                         <img
                             src={note.imgUrl}
@@ -100,7 +96,12 @@ function Card({ note }) {
                             className="rounded-xl object-cover h-32 w-full"
                         />
                     </figure>
-                )} */}
+                )}
+
+                <p className="text-gray-300/80 leading-relaxed line-clamp-3">
+                    {note.content}
+                </p>
+
                 <div className="card-actions justify-end text-gray-600 text-sm mt-2">
                     {formattedDate}
                 </div>
