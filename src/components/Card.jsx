@@ -72,11 +72,7 @@ function Card({ note }) {
                     {note.title}
                 </h2>
                 <figure>
-                    <img
-                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                        alt="Shoes"
-                        className="rounded-xl"
-                    />
+                    <img src={note.imgUrl} alt="Shoes" className="rounded-xl" />
                 </figure>
                 <p className="text-gray-300/80 leading-relaxed line-clamp-3">
                     {note.content}

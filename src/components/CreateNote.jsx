@@ -14,11 +14,11 @@ function CreateNote() {
         title: "",
         content: "",
         category: "",
+        imgUrl: "",
     });
 
     // console.log("user id", currentUser.id);
 
-    // Handle changes for all input fields
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -89,6 +89,19 @@ function CreateNote() {
                                 <option value="Study">Study</option>
                                 <option value="Creative">Creative</option>
                             </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label className="block">
+                            Image
+                            <input
+                                type="text"
+                                name="imgUrl"
+                                value={formData.imgUrl}
+                                onChange={handleChange}
+                                className="input input-bordered w-full mt-1"
+                                placeholder="Paste image url here"
+                            />
                         </label>
                     </div>
                     <button type="submit" className="btn btn-primary w-full">

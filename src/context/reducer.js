@@ -13,6 +13,7 @@ export const noteReducer = (state, action) => {
                 title: action.payload.title,
                 content: action.payload.content,
                 category: action.payload.category,
+                imgUrl: action.payload.imgUrl,
                 date: Date.now(),
                 userId: action.payload.userId,
             };

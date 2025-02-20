@@ -26,43 +26,44 @@ function SignIn() {
     };
 
     return (
-        <div>
-            <div className="flex items-center justify-center">
-                <div className="max-w-lg w-full p-8 bg-base-100 rounded-lg mt-1">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-center px-8">
+            <div className="md:w-1/2 flex justify-center">
+                <div className="max-w-lg w-full p-10 animate-slide-up">
+                    <h2 className="text-4xl font-bold text-center md:text-left mb-6">
+                        Sign In
+                    </h2>
+                    <p className="text-center md:text-left text-gray-400 mb-6">
+                        Don’t have an account?
+                        <Link to="/signup" className="text-indigo-500 ml-2">
+                            Sign up here
+                        </Link>
+                    </p>
+
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <h2>Sign In</h2>
-                        <p>
-                            You don&apos;t have an account yet, you can
-                            <Link
-                                to="/signup"
-                                className="text-indigo-500  ml-2"
-                            >
-                                signup here
-                            </Link>
-                        </p>
-                        <label className="input input-bordered flex items-center gap-2">
+                        <label className="input input-bordered flex items-center gap-3 p-3">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"
                                 fill="currentColor"
-                                className="h-4 w-4 opacity-70"
+                                className="h-5 w-5 opacity-70"
                             >
                                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                             </svg>
                             <input
                                 type="text"
-                                className="grow"
+                                className="grow text-lg"
                                 placeholder="Username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                         </label>
-                        <label className="input input-bordered flex items-center gap-2">
+
+                        <label className="input input-bordered flex items-center gap-3 p-3">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"
                                 fill="currentColor"
-                                className="h-4 w-4 opacity-70"
+                                className="h-5 w-5 opacity-70"
                             >
                                 <path
                                     fillRule="evenodd"
@@ -73,19 +74,28 @@ function SignIn() {
                             <input
                                 type="password"
                                 placeholder="Password"
-                                className="grow"
+                                className="grow text-lg"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </label>
+
                         <button
                             type="submit"
-                            className="btn btn-outline btn-primary w-full"
+                            className="btn btn-primary w-full text-lg p-3"
                         >
                             Sign In
                         </button>
                     </form>
                 </div>
+            </div>
+
+            <div className="md:w-1/2 flex justify-center">
+                <img
+                    src="/ken.svg"
+                    alt="Sign In"
+                    className="w-72 md:w-80 animate-fade-in"
+                />
             </div>
         </div>
     );

@@ -34,18 +34,24 @@ function SignUp() {
     };
 
     return (
-        <div>
-            <div className="flex items-center justify-center">
-                <div className="max-w-lg w-full p-8 bg-base-100 rounded-lg mt-4">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-center px-6">
+            <div className="md:w-1/2 flex justify-center md:justify-end">
+                <img src="/stan.svg" alt="Sign Up" className="w-72 md:w-80" />
+            </div>
+            <div className="md:w-1/2 flex justify-center">
+                <div className="max-w-lg w-full p-8">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <p>
-                                You have already an account? You can
+                            <h2 className="text-4xl font-bold text-center md:text-left mb-6">
+                                Sign Up
+                            </h2>
+                            <p className="text-center md:text-left">
+                                You have an account?
                                 <Link
                                     to="/signin"
                                     className="text-indigo-500 ml-1"
                                 >
-                                    signin here
+                                    Sign in here
                                 </Link>
                             </p>
                         </div>
@@ -116,7 +122,7 @@ function SignUp() {
                         </div>
                         <button
                             type="submit"
-                            className="btn btn-outline btn-primary w-full"
+                            className="btn btn-primary w-full"
                         >
                             Sign Up
                         </button>
