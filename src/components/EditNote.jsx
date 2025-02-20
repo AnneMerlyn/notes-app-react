@@ -109,6 +109,20 @@ function EditNote({ note }) {
                             />
                         </label>
                     </div>
+                    {/* {formData.imgUrl && (
+                        <div className="w-full aspect-w-4 aspect-h-3">
+                            <img
+                                src={formData.imgUrl}
+                                alt="Preview"
+                                className="object-cover w-full h-full rounded"
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src =
+                                        "https://www.mindful.org/content/uploads/how-to-meditate.jpg";
+                                }}
+                            />
+                        </div>
+                    )} */}
                     <button
                         type="submit"
                         onClick={handleSubmit}
