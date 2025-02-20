@@ -22,3 +22,11 @@ export const updateCurrentUser = (user) => {
 export const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("currentUser")) || null;
 };
+
+export const getNotesByCategory = (category, userId) => {
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+    return notes.filter(
+        (note) => note.category === category && note.userId === userId
+    );
+};

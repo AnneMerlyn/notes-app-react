@@ -87,7 +87,7 @@ function CreateNote() {
                                 <option value="Personal">Personal</option>
                                 <option value="Work">Work</option>
                                 <option value="Study">Study</option>
-                                <option value="Creative">Creative</option>
+                                <option value="Inspiration">Inspiration</option>
                             </select>
                         </label>
                     </div>
