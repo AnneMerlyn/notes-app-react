@@ -92,7 +92,7 @@ function Navbar() {
                                     <li>
                                         <button
                                             onClick={handleLogout}
-                                            className="btn btn-sm btn-error flex items-center justify-start gap-2 px-3"
+                                            className="btn-sm btn glass btn-outline btn-primary flex items-center justify-start gap-2 px-3"
                                         >
                                             <BiLogOut className="text-lg" />{" "}
                                             Logout

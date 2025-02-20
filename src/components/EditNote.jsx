@@ -12,6 +12,7 @@ function EditNote({ note }) {
         title: "",
         content: "",
         category: "",
+        imgUrl: "",
     });
 
     // When the note prop is available or changes, update the form state
@@ -21,6 +22,7 @@ function EditNote({ note }) {
                 title: note.title || "",
                 content: note.content || "",
                 category: note.category || "",
+                imgUrl: note.imgUrl || "",
             });
         }
     }, [note]);
@@ -92,6 +94,19 @@ function EditNote({ note }) {
                                 <option value="Study">Study</option>
                                 <option value="Creative">Creative</option>
                             </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label className="block">
+                            Image
+                            <input
+                                type="text"
+                                name="imgUrl"
+                                value={formData.imgUrl}
+                                onChange={handleChange}
+                                className="input input-bordered w-full mt-1"
+                                placeholder="Paste image url here"
+                            />
                         </label>
                     </div>
                     <button
