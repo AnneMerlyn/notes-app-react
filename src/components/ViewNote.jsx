@@ -32,12 +32,11 @@ function ViewNote({ isOpen, onClose, note }) {
                 <h2 className="text-2xl font-bold mb-2">{note.title}</h2>
 
                 <p className="mt-4 whitespace-pre-line">{note.content}</p>
-
                 {note.imgUrl && (
-                    <div className="mt-4">
+                    <figure className="mt-4">
                         <img
                             src={note.imgUrl}
-                            alt="Preview"
+                            alt="Full Note"
                             className="rounded object-cover w-full h-auto"
                             onError={(e) => {
                                 e.target.onerror = null;
@@ -45,9 +44,8 @@ function ViewNote({ isOpen, onClose, note }) {
                                     "https://www.mindful.org/content/uploads/how-to-meditate.jpg";
                             }}
                         />
-                    </div>
+                    </figure>
                 )}
-
                 <div className="mt-6 flex gap-2">
                     <button
                         onClick={onClose}
