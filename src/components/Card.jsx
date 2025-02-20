@@ -21,7 +21,7 @@ function Card({ note }) {
 
     const getCategoryColor = (category) => {
         const categoryColors = {
-            Creative: "border-indigo-500 text-indigo-500",
+            Inspiration: "border-indigo-500 text-indigo-500",
             Study: "border-violet-500 text-violet-500",
             Personal: "border-blue-500 text-blue-500",
             Work: "border-sky-500 text-sky-500",
@@ -71,9 +71,15 @@ function Card({ note }) {
                 <h2 className="card-title text-xl font-bold text-slate-100/80 mt-2 mb-2">
                     {note.title}
                 </h2>
-                <figure>
-                    <img src={note.imgUrl} alt="Shoes" className="rounded-xl" />
-                </figure>
+                {note.imgUrl && (
+                    <figure>
+                        <img
+                            src={note.imgUrl}
+                            alt="Note Image"
+                            className="rounded-xl"
+                        />
+                    </figure>
+                )}
                 <p className="text-gray-300/80 leading-relaxed line-clamp-3">
                     {note.content}
                 </p>

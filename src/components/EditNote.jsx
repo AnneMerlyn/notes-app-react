@@ -51,9 +51,9 @@ function EditNote({ note }) {
     return (
         <div className="flex items-center justify-center">
             <div className="max-w-lg w-full p-8 bg-base-100 rounded-lg mt-4">
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block">
+                        <label htmlFor="title" className="block">
                             Title
                             <input
                                 type="text"
@@ -66,7 +66,7 @@ function EditNote({ note }) {
                         </label>
                     </div>
                     <div>
-                        <label className="block">
+                        <label htmlFor="content" className="block">
                             Content
                             <textarea
                                 name="content"
@@ -78,7 +78,7 @@ function EditNote({ note }) {
                         </label>
                     </div>
                     <div>
-                        <label className="block">
+                        <label htmlFor="cetagory" className="block">
                             Category
                             <select
                                 name="category"
@@ -92,12 +92,12 @@ function EditNote({ note }) {
                                 <option value="Personal">Personal</option>
                                 <option value="Work">Work</option>
                                 <option value="Study">Study</option>
-                                <option value="Creative">Creative</option>
+                                <option value="Inspiration">Inspiration</option>
                             </select>
                         </label>
                     </div>
                     <div>
-                        <label className="block">
+                        <label htmlFor="imgUrl" className="block">
                             Image
                             <input
                                 type="text"
@@ -123,12 +123,15 @@ function EditNote({ note }) {
                             />
                         </div>
                     )} */}
-                    <button
-                        type="submit"
-                        onClick={handleSubmit}
-                        className="btn btn-primary w-full"
-                    >
+                    <button type="submit" className="btn btn-primary w-full">
                         Edit this Note
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => navigate(-1)}
+                        className="btn btn-neutral w-full"
+                    >
+                        Cancel
                     </button>
                 </form>
             </div>

@@ -107,6 +107,13 @@ function CreateNote() {
                     <button type="submit" className="btn btn-primary w-full">
                         Create this Note
                     </button>
+                    <button
+                        type="button"
+                        onClick={() => navigate(-1)}
+                        className="btn btn-neutral w-full"
+                    >
+                        Cancel
+                    </button>
                 </form>
             </div>
         </div>

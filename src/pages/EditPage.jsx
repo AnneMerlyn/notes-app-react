@@ -16,7 +16,7 @@ function EditPage() {
 
     return (
         <div>
-            <EditNote key={note.id} note={note} />;
+            <EditNote key={note.id} note={note} />
         </div>
     );
 }

@@ -20,8 +20,8 @@ function Menu({ setSelectedCategory }) {
                                 onClick={() => handleSelect(category)}
                                 className={`px-4 py-2 rounded-lg transition-all ${
                                     selectedMenuItem === category
-                                        ? "bg-indigo-500 hover:bg-indigo-500 text-white font-bold"
-                                        : "hover:bg-indigo-300 hover:text-white"
+                                        ? "bg-indigo-500 hover:bg-indigo-500 text-gray-700 font-bold"
+                                        : "hover:bg-indigo-400 hover:text-gray-700"
                                 }`}
                             >
                                 {category}
